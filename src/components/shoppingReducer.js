@@ -1,7 +1,6 @@
-import { useState } from "react";
 import { TYPES } from "./actions/shoppingActions";
 
-export let shoppingInitialState = {
+export let shoppingInitialState = JSON.parse(localStorage.getItem("shoppingInitialState")) ?? {
     products: []
 };
 
@@ -12,13 +11,15 @@ export function shoppingReducer(state, action){
                 ...shoppingInitialState,
               products: [...state.products, action.payload]
             }
+            localStorage.setItem("shoppingInitialState", JSON.stringify(shoppingInitialState));
             return shoppingInitialState;
         }
         case TYPES.REMOVE_FROM_CART: {
             shoppingInitialState = {
                 ...shoppingInitialState,
-                products: state.products.filter(product => product.id !== action.payload)
+                products: state.products.filter(product => product !== action.payload)
             }
+            localStorage.setItem("shoppingInitialState", JSON.stringify(shoppingInitialState));            
             return shoppingInitialState;
         }
         case TYPES.CLEAR_CART: {
@@ -26,6 +27,7 @@ export function shoppingReducer(state, action){
                 ...shoppingInitialState,
                 products: []
             }
+            localStorage.setItem("shoppingInitialState", JSON.stringify(shoppingInitialState));            
             return shoppingInitialState;
         }
         default:
