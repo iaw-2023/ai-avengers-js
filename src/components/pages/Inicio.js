@@ -54,7 +54,7 @@ const Inicio = () => {
       <div className="search-container">
         <input
           type="text"
-          placeholder="Buscar vehículo..."
+          placeholder="Filtrar por marca"
           value={searchText}
           onChange={handleSearchChange}
           className="search-input"
