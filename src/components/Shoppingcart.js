@@ -18,7 +18,7 @@ const Shoppingcart = () => {
   const [email, setEmail] = useState("");
   const [error, setError] = useState("");
 
-  const [showPopup, setShowPopup] = useState(true);
+  const [showPopup, setShowPopup] = useState(false);
 
   const handleEmailChange = (event) => {
     setEmail(event.target.value);
