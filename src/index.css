@@ -16,10 +16,55 @@ code {
   padding: 1rem;
   margin: 1rem;
   box-shadow: 0 0 1rem #00000025 inset;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px; /* Espacio entre las tarjetas */
+  justify-content: space-between;
+}
+
+.card {
+  flex: 1 1 300px; /* Ancho mínimo, crecimiento flexible, ancho máximo */
+  margin-bottom: 5rem;
 }
 
 .grid-responsive{
   display:grid;
   grid-template-columns: repeat(auto-fit,minimax(200px,1fr));
   gap:1 rem;
+}
+
+.search-input {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.search-input::placeholder {
+  color: #999;
+}
+
+.search-container {
+  display: flex;
+  justify-content: center; /* Centra el contenido horizontalmente */
+  margin: 2rem;
+}
+
+
+.popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  padding: 20px;
+  border: 1px solid #ccc;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }

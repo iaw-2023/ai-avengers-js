@@ -3,6 +3,7 @@ import { shoppingInitialState, shoppingReducer } from "./shoppingReducer";
 import ProductItem from "./ProductItem";
 import DreamCar_ico from "../images/DreamCar_ico.png";
 import { peticionVehiculos, peticionMarcas } from "./apiAux";
+import Popup from "./Popup";
 
 const Shoppingcart = () => {
   const [state, dispatch] = useReducer(shoppingReducer, shoppingInitialState);
@@ -16,6 +17,8 @@ const Shoppingcart = () => {
   const [endDate, setEndDate] = useState("");
   const [email, setEmail] = useState("");
   const [error, setError] = useState("");
+
+  const [showPopup, setShowPopup] = useState(true);
 
   const handleEmailChange = (event) => {
     setEmail(event.target.value);
@@ -67,17 +70,18 @@ const Shoppingcart = () => {
       );
 
       const reserva = await res.json();
+      if(res.status === 200) {
+        setShowPopup(true);
+        setStartDate("");
+        setEndDate("");
+        setEmail("");
+      }
       return reserva;
     } catch (error) {
       console.error("Error en la solicitud de marcas:", error);
       return [];
     }
 
-    // Realizar cualquier acción adicional aquí, como enviar los valores al servidor
-
-    // Restablecer los valores de los campos de fecha después de enviar el formulario
-    setStartDate("");
-    setEndDate("");
   };
 
   useEffect(() => {
@@ -183,6 +187,8 @@ const Shoppingcart = () => {
         <button type="submit" className="btn btn-primary">
           Submit
         </button>
+        <Popup show={showPopup} close={() => setShowPopup(false)} />
+        
       </form>
     </div>
   );
