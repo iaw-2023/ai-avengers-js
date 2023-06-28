@@ -9,7 +9,7 @@ const ProductItem = ({product, deleteFromCart}) => {
     <div className='card'>
         <h4>{name}</h4>
         <h5>{price}</h5>
-        <button onClick={()=> deleteFromCart(product)}>Delete</button>
+        {/* <button onClick={()=> deleteFromCart(product)}>Delete</button> */}
     </div>
   )
 }
