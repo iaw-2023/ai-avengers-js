@@ -5,7 +5,7 @@ const Popup = ({ show, close }) => {
     <div className="popup">
       <h3>¡Reserva realizada!</h3>
       <p>Tu reserva ha sido procesada exitosamente.</p>
-      <button className="btn-close" onClick={() => close()}>cerrar</button>
+      <button className="btn-close" onClick={() => close()}></button>
     </div>
   );
 };

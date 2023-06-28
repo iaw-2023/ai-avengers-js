@@ -28,6 +28,33 @@ code {
   justify-content: space-between;
 }
 
+.card-container-shopping {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px; /* Espacio entre las tarjetas */
+  justify-content: space-between;
+  margin: 2rem;
+}
+
+.input-form-shopping  {
+  width: 60%;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+}
+
+.form-control{
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.titulos{
+  font-weight: bold;
+  font-size: large;
+}
+
+
 .card {
   flex: 1 1 300px; /* Ancho mínimo, crecimiento flexible, ancho máximo */
   margin-bottom: 5rem;

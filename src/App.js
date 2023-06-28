@@ -1,9 +1,8 @@
-import logo from './logo.svg'
 import './App.css'
 import { BrowserRouter as Router, Routes, Route} from 'react-router-dom'
 import Navbar from './components/navegation/Navbar'
 import Inicio from './components/pages/Inicio'
-import Shoppingcart from './components/Shoppingcart'
+import Shoppingcart from './components/pages/Shoppingcart'
 
 function App() {
   return (

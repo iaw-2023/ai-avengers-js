@@ -1,17 +1,13 @@
 import React, { useEffect, useReducer, useState } from "react";
-import { shoppingInitialState, shoppingReducer } from "./shoppingReducer";
-import ProductItem from "./ProductItem";
-import DreamCar_ico from "../images/DreamCar_ico.png";
-import { peticionVehiculos, peticionMarcas } from "./apiAux";
-import Popup from "./Popup";
+import { shoppingInitialState, shoppingReducer } from "../shoppingReducer";
+import ProductItem from "../ProductItem";
+import {  peticionMarcas } from "../apiAux";
+import Popup from "../Popup";
 
 const Shoppingcart = () => {
   const [state, dispatch] = useReducer(shoppingReducer, shoppingInitialState);
   const { products } = state;
-  const [vehiculos, setVehiculos] = useState([]);
   const [marcas, setMarcas] = useState([]);
-  const delFromCart = () => {};
-  const clearCart = () => {};
 
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
@@ -70,7 +66,7 @@ const Shoppingcart = () => {
       );
 
       const reserva = await res.json();
-      if(res.status === 200) {
+      if (res.status === 200) {
         setShowPopup(true);
         setStartDate("");
         setEndDate("");
@@ -81,14 +77,11 @@ const Shoppingcart = () => {
       console.error("Error en la solicitud de marcas:", error);
       return [];
     }
-
   };
 
   useEffect(() => {
     const fetchData = async () => {
-      const vehiculosData = await peticionVehiculos();
       const marcasData = await peticionMarcas();
-      setVehiculos(vehiculosData);
       setMarcas(marcasData);
     };
 
@@ -109,40 +102,14 @@ const Shoppingcart = () => {
       <h2>Carrito de compras</h2>
       <br />
       {products && products.length > 0 ? (
-        <div className="column">
+        <div className="card-container-shopping">
           {products.map((vehiculo, index) => (
             <div key={vehiculo.id}>
-              <div
-                className="card text-bg-primary mb-3"
-                style={{ maxWidth: "18rem" }}
-                key={vehiculo.id}
-              >
-                <img src={DreamCar_ico} className="card-img-top"></img>
-                <div className="card-body">
-                  <h4>{vehiculo.modelo}</h4>
-                  <p>
-                    {"Marca:" +
-                      (marcas.find((marca) => marca.id === vehiculo.id_marca)
-                        ?.marca || " ")}
-                  </p>
-                  <p>{"Precio:" + vehiculo.precio + "$"}</p>
-                  <button
-                    className="btn btn-primary"
-                    onClick={() => deleteFromCart(vehiculo)}
-                  >
-                    Borrar del carrito
-                  </button>
-                </div>
-              </div>
               <ProductItem
-                key={index}
-                product={vehiculo}
-                deleteFromCart={() => {
-                  dispatch({
-                    type: "REMOVE_FROM_CART",
-                    payload: vehiculo,
-                  });
-                }}
+                vehiculo={vehiculo}
+                marcas={marcas}
+                onClickFuncion={deleteFromCart}
+                botonMensaje="Borrar del carrito"
               />
             </div>
           ))}
@@ -151,9 +118,9 @@ const Shoppingcart = () => {
         <p>No hay productos en el carrito.</p>
       )}
 
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="input-form-shopping">
         <div className="form-group">
-          <label htmlFor="exampleInputEmail1">Email address</label>
+          <label  className="titulos" htmlFor="exampleInputEmail1">Email address</label>
           <input
             type="email"
             className="form-control"
@@ -164,7 +131,7 @@ const Shoppingcart = () => {
           />
         </div>
         <div className="form-group">
-          <label htmlFor="startDate">Fecha de inicio</label>
+          <label className="titulos" htmlFor="startDate">Fecha de inicio</label>
           <input
             type="date"
             className="form-control"
@@ -174,7 +141,7 @@ const Shoppingcart = () => {
           />
         </div>
         <div className="form-group">
-          <label htmlFor="endDate">Fecha final</label>
+          <label className="titulos" htmlFor="endDate">Fecha final</label>
           <input
             type="date"
             className="form-control"
@@ -188,7 +155,6 @@ const Shoppingcart = () => {
           Submit
         </button>
         <Popup show={showPopup} close={() => setShowPopup(false)} />
-        
       </form>
     </div>
   );
