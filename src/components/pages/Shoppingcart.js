@@ -154,7 +154,7 @@ const Shoppingcart = () => {
         <button type="submit" className="btn btn-primary">
           Submit
         </button>
-        <Popup show={showPopup} close={() => setShowPopup(false)} />
+        <Popup show={showPopup} popMensaje="Tu reserva ha sido procesada exitosamente." close={() => setShowPopup(false)} />
       </form>
     </div>
   );

@@ -1,10 +1,9 @@
-const Popup = ({ show, close }) => {
+const Popup = ({ show, popMensaje, close }) => {
   if (!show) return null;
 
   return (
     <div className="popup">
-      <h3>¡Reserva realizada!</h3>
-      <p>Tu reserva ha sido procesada exitosamente.</p>
+      {popMensaje}
       <button className="btn-close" onClick={() => close()}></button>
     </div>
   );

@@ -21,7 +21,7 @@ const ProductItem = ({ vehiculo, marcas, onClickFuncion, botonMensaje }) => {
         </p>
         <p>{"Precio:" + vehiculo.precio + "$"}</p>
         <button
-          className="btn btn-primary"
+          className="btn btn-primary btn btn-danger"
           onClick={() => onClickFuncion(vehiculo)}
         >
           {botonMensaje}

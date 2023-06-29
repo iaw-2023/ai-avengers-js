@@ -3,6 +3,8 @@ import { useEffect, useState, useReducer } from "react";
 import { shoppingReducer, shoppingInitialState } from "../shoppingReducer";
 import { peticionVehiculos, peticionMarcas } from "../apiAux";
 import ProductItem from "../ProductItem";
+import Popup from "../Popup";
+
 const Inicio = () => {
   const [vehiculos, setVehiculos] = useState([]);
   const [marcas, setMarcas] = useState([]);
@@ -11,15 +13,19 @@ const Inicio = () => {
 
   const [state, dispatch] = useReducer(shoppingReducer, shoppingInitialState);
 
+  const [showPopup, setShowPopup] = useState(false);
+
   const handleSearchChange = (event) => {
-    const value = event.target.value
+    const value = event.target.value;
     setSearchText(value);
-    const marcaObj = marcas.filter((marcaObjeto)=> marcaObjeto.marca.toLowerCase().includes(value.toLowerCase() ))
-    const marcasIds = marcaObj.map(elemento => elemento.id);
+    const marcaObj = marcas.filter((marcaObjeto) =>
+      marcaObjeto.marca.toLowerCase().includes(value.toLowerCase())
+    );
+    const marcasIds = marcaObj.map((elemento) => elemento.id);
     const filteredVehiculos = todosLosVehiculos.filter((vehiculo) => {
-     return  marcasIds.includes(vehiculo.id_marca)
+      return marcasIds.includes(vehiculo.id_marca);
     });
-    if(filteredVehiculos.length > 0) {
+    if (filteredVehiculos.length > 0) {
       setVehiculos(filteredVehiculos);
     }
   };
@@ -29,8 +35,8 @@ const Inicio = () => {
       type: "ADD_TO_CART",
       payload: vehiculo,
     });
+    setShowPopup(true);
   };
-
 
   useEffect(() => {
     const fetchData = async () => {
@@ -60,17 +66,14 @@ const Inicio = () => {
       <article className="box grid-responsive">
         <div className="card-container">
           {vehiculos.map((vehiculo) => (
-            <div
-              className="card text-bg-primary mb-3"
-              style={{ maxWidth: "18rem" }}
-              key={vehiculo.id}
-            >
-                <ProductItem
+            <div lassName="card text-bg-primary mb-3" style={{ maxWidth: "18rem" }} key={vehiculo.id} >
+              <ProductItem
                 vehiculo={vehiculo}
                 marcas={marcas}
                 onClickFuncion={addToCart}
                 botonMensaje="Agregar al carrito"
               />
+              <Popup show={showPopup} popMensaje="Vehiculo agregado al carrito" close={() => setShowPopup(false)} />
             </div>
           ))}
         </div>
