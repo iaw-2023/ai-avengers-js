@@ -111,10 +111,10 @@ const Inicio = () => {
       </div>
       ) : (
         showNoResultsMessage ? (
-          <p>Buscando...</p>
+          <p>No hay productos en el carrito.</p>
         ) : (
           searchText.trim() === "" ? (
-            <p>No hay productos en el carrito.</p>
+            <p>Buscando...</p>
           ) : null
         )
       )}
