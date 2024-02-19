@@ -1,6 +1,7 @@
 import React, { useEffect, useReducer, useState } from "react";
 import { shoppingInitialState, shoppingReducer } from "../shoppingReducer";
 import ProductItem from "../ProductItem";
+import ListItem from "../ListItem";
 import {  peticionMarcas } from "../apiAux";
 import Popup from "../Popup";
 
@@ -97,20 +98,36 @@ const Shoppingcart = () => {
     });
   };
 
+  const [isCardView, setIsCardView] = useState(true);
+
+  const toggleView = () => {
+    setIsCardView(!isCardView);
+  };
+
   return (
     <div>
       <h2>Carrito de compras</h2>
       <br />
+      <button onClick={toggleView}>Toggle View</button>
       {products && products.length > 0 ? (
-        <div className="card-container-shopping">
+        <div className={isCardView ? "card-container-shopping" : "list-container-shopping"}>
           {products.map((vehiculo, index) => (
             <div key={vehiculo.id}>
-              <ProductItem
-                vehiculo={vehiculo}
-                marcas={marcas}
-                onClickFuncion={deleteFromCart}
-                botonMensaje="Borrar del carrito"
-              />
+              {isCardView ? (
+                <ProductItem
+                  vehiculo={vehiculo}
+                  marcas={marcas}
+                  onClickFuncion={deleteFromCart}
+                  botonMensaje="Borrar del carrito"
+                />
+              ) : (
+                <ListItem
+                  vehiculo={vehiculo}
+                  marcas={marcas}
+                  onClickFuncion={deleteFromCart}
+                  botonMensaje="Borrar del carrito"
+                />
+              )}
             </div>
           ))}
         </div>
