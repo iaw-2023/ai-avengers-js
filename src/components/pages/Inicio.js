@@ -91,7 +91,7 @@ const Inicio = () => {
       {vehiculos && vehiculos.length > 0 ? (
       <div className={isCardView ? "card-container-shopping" : "list-container-shopping"}>
           {vehiculos.map((vehiculo) => (
-            <div className="card text-bg-primary mb-3" style={{ maxWidth: "18rem" }} key={vehiculo.id} >
+            <div style={{ maxWidth: "18rem" }} key={vehiculo.id} >
               {isCardView ? (
                 <ProductItem
                   vehiculo={vehiculo}
