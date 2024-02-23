@@ -1,6 +1,7 @@
 import React from "react";
 import DreamCar_ico from "../images/DreamCar_ico.png";
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCartPlus } from '@fortawesome/free-solid-svg-icons';
 
 const ProductItem = ({ vehiculo, marcas, onClickFuncion, botonMensaje }) => {
   return (
@@ -16,7 +17,7 @@ const ProductItem = ({ vehiculo, marcas, onClickFuncion, botonMensaje }) => {
         <button
           className="btn btn-primary btn btn-danger"
           onClick={() => onClickFuncion(vehiculo)}
-        >
+        > <FontAwesomeIcon icon={faCartPlus} />
           {botonMensaje}
         </button>
       </div>

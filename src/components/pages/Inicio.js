@@ -4,6 +4,8 @@ import { peticionVehiculos, peticionMarcas } from "../apiAux";
 import ProductItem from "../ProductItem";
 import ListItem from "../ListItem";
 import Popup from "../Popup";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faRotate } from '@fortawesome/free-solid-svg-icons';
 
 const Inicio = () => {
   const [vehiculos, setVehiculos] = useState([]);
@@ -81,7 +83,10 @@ const Inicio = () => {
           className="search-input"
         />
       </div>
-      <button onClick={toggleView}>Toggle View</button>
+      <button onClick={toggleView}>
+        <FontAwesomeIcon icon={faRotate} />
+           Cambiar vista
+      </button>
       {vehiculos && vehiculos.length > 0 ? (
       <div className={isCardView ? "card-container-shopping" : "list-container-shopping"}>
           {vehiculos.map((vehiculo) => (
@@ -91,19 +96,19 @@ const Inicio = () => {
                   vehiculo={vehiculo}
                   marcas={marcas}
                   onClickFuncion={addToCart}
-                  botonMensaje="Agregar al carrito"
+                  botonMensaje=" Agregar al carrito"
                 />
               ) : (
                 <ListItem
                   vehiculo={vehiculo}
                   marcas={marcas}
                   onClickFuncion={addToCart}
-                  botonMensaje="Agregar al carrito"
+                  botonMensaje=" Agregar al carrito"
                 />
               )}
               <Popup 
                 show={showPopup} 
-                popMensaje="Vehiculo agregado al carrito" 
+                popMensaje=" Vehiculo agregado al carrito" 
                 close={() => setShowPopup(false)} 
               />
             </div>
