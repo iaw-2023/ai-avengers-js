@@ -106,6 +106,7 @@ const Inicio = () => {
                   marcas={marcas}
                   onClickFuncion={addToCart}
                   botonMensaje=" Agregar al carrito"
+                  isInCartView={false}
                 />
               )}
               <Popup 

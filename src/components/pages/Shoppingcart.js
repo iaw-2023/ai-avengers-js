@@ -133,6 +133,7 @@ const Shoppingcart = () => {
                   marcas={marcas}
                   onClickFuncion={deleteFromCart}
                   botonMensaje=" Borrar del carrito"
+                  isInCartView={true}
                 />
               )}
             </div>

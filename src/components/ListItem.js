@@ -2,7 +2,8 @@ import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartPlus } from '@fortawesome/free-solid-svg-icons';
 
-const ListItem = ({ vehiculo, marcas, onClickFuncion, botonMensaje }) => {
+const ListItem = ({ vehiculo, marcas, onClickFuncion, botonMensaje, isInCartView }) => {
+  const buttonClass = isInCartView ? "btn btn-danger" : "btn btn-success";
   return (
     <div className="list text-bg-dark text-white mb-1" 
       style={{ maxWidth: "22rem", display: "flex", alignItems: "center"}} key={vehiculo.id} >
@@ -11,7 +12,7 @@ const ListItem = ({ vehiculo, marcas, onClickFuncion, botonMensaje }) => {
           <p>{"Modelo: " + vehiculo.modelo}{" Precio: $"+ vehiculo.precio}{" "}</p>
         </div>
         <button
-          className="btn btn-primary btn btn-danger"
+          className={buttonClass}
           onClick={() => onClickFuncion(vehiculo)}
         > <FontAwesomeIcon icon={faCartPlus} />
           {botonMensaje}
