@@ -74,13 +74,14 @@ const Inicio = () => {
 
   return (
     <div>
+      <img src="/dreamCarHome.png" alt="DreamCarHome" />
       <div className="search-container">
         <input
           type="text"
           placeholder="Filtrar por marca"
           value={searchText}
           onChange={handleSearchChange}
-          className="search-input"
+          className="small-search-container"
         />
       </div>
       <button onClick={toggleView}>
@@ -97,6 +98,7 @@ const Inicio = () => {
                   marcas={marcas}
                   onClickFuncion={addToCart}
                   botonMensaje=" Agregar al carrito"
+                  isInCartView={false}
                 />
               ) : (
                 <ListItem

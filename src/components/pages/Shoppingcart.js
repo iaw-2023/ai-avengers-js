@@ -124,14 +124,15 @@ const Shoppingcart = () => {
                   vehiculo={vehiculo}
                   marcas={marcas}
                   onClickFuncion={deleteFromCart}
-                  botonMensaje="Borrar del carrito"
+                  botonMensaje=" Borrar del carrito"
+                  isInCartView={true}
                 />
               ) : (
                 <ListItem
                   vehiculo={vehiculo}
                   marcas={marcas}
                   onClickFuncion={deleteFromCart}
-                  botonMensaje="Borrar del carrito"
+                  botonMensaje=" Borrar del carrito"
                 />
               )}
             </div>

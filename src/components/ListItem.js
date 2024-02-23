@@ -4,8 +4,8 @@ import { faCartPlus } from '@fortawesome/free-solid-svg-icons';
 
 const ListItem = ({ vehiculo, marcas, onClickFuncion, botonMensaje }) => {
   return (
-    <div className="list text-bg-primary mb-3" style={{ maxWidth: "22rem" }} key={vehiculo.id} >
-      <div className="list-item" style={{ display: "flex", alignItems: "center" }}>
+    <div className="list text-bg-dark text-white mb-1" 
+      style={{ maxWidth: "22rem", display: "flex", alignItems: "center"}} key={vehiculo.id} >
         <div>
           <h4>{(marcas.find((marca) => marca.id === vehiculo.id_marca)?.marca || " ")}</h4>
           <p>{"Modelo: " + vehiculo.modelo}{" Precio: $"+ vehiculo.precio}{" "}</p>
@@ -17,7 +17,6 @@ const ListItem = ({ vehiculo, marcas, onClickFuncion, botonMensaje }) => {
           {botonMensaje}
         </button>
       </div>
-    </div>
   );
 };
 
