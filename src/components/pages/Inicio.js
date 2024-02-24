@@ -10,10 +10,9 @@ const Inicio = () => {
   const [marcas, setMarcas] = useState([]);
   const [searchText, setSearchText] = useState("");
   const [todosLosVehiculos, setTodosLosVehiculos] = useState([]);
-
   const [state, dispatch] = useReducer(shoppingReducer, shoppingInitialState);
-
   const [showPopup, setShowPopup] = useState(false);
+  const [data, setData] = useState(null);
 
   const handleSearchChange = (event) => {
     const value = event.target.value;
@@ -52,6 +51,20 @@ const Inicio = () => {
     }
   }, [vehiculos, marcas]);
 
+
+  useEffect(() => {
+    const fetchData = async () => {
+        try {
+            const response = await fetch('http://api.exchangeratesapi.io/v1/latest?access_key=1677de3104d91da387e7a7635c931ab6&symbols=USD,ARS,JPY,GBP&format=1');
+            const jsonData = await response.json();
+            setData(jsonData.rates);
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    };
+    fetchData();
+  }, []);
+
   return (
     <div>
       <div className="search-container">
@@ -66,12 +79,13 @@ const Inicio = () => {
       <article className="box grid-responsive">
         <div className="card-container">
           {vehiculos.map((vehiculo) => (
-            <div lassName="card text-bg-primary mb-3" style={{ maxWidth: "18rem" }} key={vehiculo.id} >
+            <div className="card text-bg-primary mb-3" style={{ maxWidth: "18rem" }} key={vehiculo.id} >
               <ProductItem
                 vehiculo={vehiculo}
                 marcas={marcas}
                 onClickFuncion={addToCart}
                 botonMensaje="Agregar al carrito"
+                rates={data}
               />
               <Popup show={showPopup} popMensaje="Vehiculo agregado al carrito" close={() => setShowPopup(false)} />
             </div>

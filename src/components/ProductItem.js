@@ -2,8 +2,17 @@ import React from "react";
 import DreamCar_ico from "../images/DreamCar_ico.png";
 
 
-const ProductItem = ({ vehiculo, marcas, onClickFuncion, botonMensaje }) => {
+const ProductItem = ({ vehiculo, marcas, onClickFuncion, botonMensaje, rates }) => {
 
+  const resultado = rates
+  ? Object.entries(rates).map(([moneda, tasa]) => (
+      <div key={moneda}>
+      <p>
+        {moneda}: {((tasa * vehiculo.precio).toFixed(2))}
+      </p>
+      </div>
+    ))
+  : null;
 
   return (
     <div
@@ -19,7 +28,10 @@ const ProductItem = ({ vehiculo, marcas, onClickFuncion, botonMensaje }) => {
             (marcas.find((marca) => marca.id === vehiculo.id_marca)?.marca ||
               " ")}
         </p>
-        <p>{"Precio:" + vehiculo.precio + "$"}</p>
+        <p>{"Precio:" + vehiculo.precio + "€"}</p>
+        <div class="overflow-auto">
+          {resultado}
+        </div>
         <button
           className="btn btn-primary btn btn-danger"
           onClick={() => onClickFuncion(vehiculo)}
