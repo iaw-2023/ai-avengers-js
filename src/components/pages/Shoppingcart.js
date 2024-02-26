@@ -1,12 +1,11 @@
 import React, { useEffect, useReducer, useState } from "react";
 import { shoppingInitialState, shoppingReducer } from "../shoppingReducer";
-import {  peticionMarcas } from "../apiAux";
+import { peticionMarcas } from "../apiAux";
 import ProductItem from "../ProductItem";
 import ListItem from "../ListItem";
 import Popup from "../Popup";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faRotate } from '@fortawesome/free-solid-svg-icons';
-import { faEnvelopeCircleCheck } from '@fortawesome/free-solid-svg-icons';
+import { faRotate, faEnvelopeCircleCheck } from '@fortawesome/free-solid-svg-icons';
 
 const Shoppingcart = () => {
   const [state, dispatch] = useReducer(shoppingReducer, shoppingInitialState);
@@ -109,8 +108,8 @@ const Shoppingcart = () => {
 
   return (
     <div>
-      <h2>Carrito de compras</h2>
-      <br />
+      <img src="/dreamCarShopping.png" alt="DreamCarShopping" />
+      <br /><br />
       <button onClick={toggleView}>
         <FontAwesomeIcon icon={faRotate} />
            Cambiar vista
