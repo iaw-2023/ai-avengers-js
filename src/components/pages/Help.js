@@ -1,4 +1,6 @@
 import React from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faHome } from '@fortawesome/free-solid-svg-icons';
 
 const Help = () => {
   return (
@@ -13,14 +15,16 @@ const Help = () => {
 
       <div style={{ display: 'flex', alignItems: 'center' }}>
         <img src="/dreamFAQ.png" alt="DreamCarFAQ" style={{ marginRight: '10px', marginLeft:'10px' }} />
-        <div >
-            <h5><b>Preguntas frecuentes</b></h5>
-            <ul>
-                <ul>¿Como hacer una reserva?</ul>
-                <p> Seleccionar desde el "Home" lo vehiculos deseados y agregarlos al carrito </p>
-                <li>¿Como pagar una reserva?</li>
-                <li>¿Como cancelar una reserva?</li>
-            </ul>
+        <div>
+            <h3><b>Preguntas frecuentes</b></h3>
+            <ul>¿Como hacer una reserva?</ul>
+            <p> Seleccionar desde el "Home"<FontAwesomeIcon icon={faHome}/>
+                 lo vehiculos deseados y agregarlos al carrito </p>
+            <ul>¿Como pagar una reserva?</ul>
+            <p> Proximamente el pago podrá ser realizado con Mercado Pago </p>
+            <ul>¿Como cancelar una reserva?</ul>
+            <p> Enviar un mail al personal de DreamCar o buscar nuestra 
+                sucursal mas cercana para hablar con un empleado</p>
         </div>
       </div>
     </div>
