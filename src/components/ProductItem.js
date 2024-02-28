@@ -1,5 +1,6 @@
-import React from "react";
+import { React, useState }  from "react";
 import DreamCar_ico from "../images/DreamCar_ico.png";
+import '../index.css';
 
 
 const ProductItem = ({ vehiculo, marcas, onClickFuncion, botonMensaje, rates }) => {
@@ -13,6 +14,16 @@ const ProductItem = ({ vehiculo, marcas, onClickFuncion, botonMensaje, rates }) 
       </div>
     ))
   : null;
+
+  const [mostrarCuadro, setMostrarCuadro] = useState(false);
+
+  const manejarMouseEnter = () => {
+    setMostrarCuadro(true);
+  };
+
+  const manejarMouseLeave = () => {
+    setMostrarCuadro(false);
+  };
 
   return (
     <div
@@ -29,8 +40,11 @@ const ProductItem = ({ vehiculo, marcas, onClickFuncion, botonMensaje, rates }) 
               " ")}
         </p>
         <p>{"Precio:" + vehiculo.precio + "€"}</p>
-        <div class="overflow-auto">
-          {resultado}
+        <div>
+          <p className="textoDestacado" onMouseEnter={manejarMouseEnter} onMouseLeave={manejarMouseLeave}>
+            Otras monedas
+          </p>
+          {mostrarCuadro && <div>{resultado}</div>}
         </div>
         <button
           className="btn btn-primary btn btn-danger"
