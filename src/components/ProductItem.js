@@ -35,11 +35,11 @@ const ProductItem = ({ vehiculo, marcas, onClickFuncion, botonMensaje, rates }) 
       <div className="card-body">
         <h4>{vehiculo.modelo}</h4>
         <p>
-          {"Marca:" +
+          {"Marca: " +
             (marcas.find((marca) => marca.id === vehiculo.id_marca)?.marca ||
               " ")}
         </p>
-        <p>{"Precio:" + vehiculo.precio + "€"}</p>
+        <p>{"Precio: " + vehiculo.precio + "€"}</p>
         <div>
           <p className="textoDestacado" onMouseEnter={manejarMouseEnter} onMouseLeave={manejarMouseLeave}>
             Otras monedas
