@@ -93,13 +93,14 @@ const Inicio = () => {
       <div className="search-container">
         <input
           type="text"
+          style={{ border: "5px double #0d6efd", borderRadius: "8px" }}
           placeholder="Filtrar por marca"
           value={searchText}
           onChange={handleSearchChange}
           className="small-search-container"
         />
       </div>
-      <button onClick={toggleView}>
+      <button onClick={toggleView} className="btn btn-secondary">
         <FontAwesomeIcon icon={faRotate} />
            Cambiar vista
       </button>

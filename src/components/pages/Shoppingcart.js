@@ -110,7 +110,7 @@ const Shoppingcart = () => {
     <div>
       <img src="/dreamCarShopping.png" alt="DreamCarShopping" />
       <br /><br />
-      <button onClick={toggleView}>
+      <button onClick={toggleView} className="btn btn-secondary">
         <FontAwesomeIcon icon={faRotate} />
            Cambiar vista
       </button>
