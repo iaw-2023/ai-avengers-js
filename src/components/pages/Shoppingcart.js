@@ -1,8 +1,11 @@
 import React, { useEffect, useReducer, useState } from "react";
 import { shoppingInitialState, shoppingReducer } from "../shoppingReducer";
+import { peticionMarcas } from "../apiAux";
 import ProductItem from "../ProductItem";
-import {  peticionMarcas } from "../apiAux";
+import ListItem from "../ListItem";
 import Popup from "../Popup";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faRotate, faEnvelopeCircleCheck } from '@fortawesome/free-solid-svg-icons';
 
 const Shoppingcart = () => {
   const [state, dispatch] = useReducer(shoppingReducer, shoppingInitialState);
@@ -97,20 +100,41 @@ const Shoppingcart = () => {
     });
   };
 
+  const [isCardView, setIsCardView] = useState(true);
+
+  const toggleView = () => {
+    setIsCardView(!isCardView);
+  };
+
   return (
     <div>
-      <h2>Carrito de compras</h2>
-      <br />
+      <img src="/dreamCarShopping.png" alt="DreamCarShopping" />
+      <br /><br />
+      <button onClick={toggleView}>
+        <FontAwesomeIcon icon={faRotate} />
+           Cambiar vista
+      </button>
       {products && products.length > 0 ? (
-        <div className="card-container-shopping">
+        <div className={isCardView ? "card-container-shopping" : "list-container-shopping"}>
           {products.map((vehiculo, index) => (
             <div key={vehiculo.id}>
-              <ProductItem
-                vehiculo={vehiculo}
-                marcas={marcas}
-                onClickFuncion={deleteFromCart}
-                botonMensaje="Borrar del carrito"
-              />
+              {isCardView ? (
+                <ProductItem
+                  vehiculo={vehiculo}
+                  marcas={marcas}
+                  onClickFuncion={deleteFromCart}
+                  botonMensaje=" Borrar del carrito"
+                  isInCartView={true}
+                />
+              ) : (
+                <ListItem
+                  vehiculo={vehiculo}
+                  marcas={marcas}
+                  onClickFuncion={deleteFromCart}
+                  botonMensaje=" Borrar del carrito"
+                  isInCartView={true}
+                />
+              )}
             </div>
           ))}
         </div>
@@ -120,7 +144,7 @@ const Shoppingcart = () => {
 
       <form onSubmit={handleSubmit} className="input-form-shopping">
         <div className="form-group">
-          <label  className="titulos" htmlFor="exampleInputEmail1">Email address</label>
+          <label  className="titulos" htmlFor="exampleInputEmail1">Direccion de email</label>
           <input
             type="email"
             className="form-control"
@@ -152,7 +176,8 @@ const Shoppingcart = () => {
         </div>
         {error && <p>{error}</p>} {/* Mostrar el mensaje de error si existe */}
         <button type="submit" className="btn btn-primary">
-          Submit
+          <FontAwesomeIcon icon={faEnvelopeCircleCheck} />
+             Reservar
         </button>
         <Popup show={showPopup} popMensaje="Tu reserva ha sido procesada exitosamente." close={() => setShowPopup(false)} />
       </form>

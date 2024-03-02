@@ -80,10 +80,9 @@ code {
 
 .search-container {
   display: flex;
-  justify-content: center; /* Centra el contenido horizontalmente */
+  justify-content: center;
   margin: 2rem;
 }
-
 
 .popup {
   position: fixed;
@@ -100,4 +99,10 @@ code {
   border: 1px solid #345feb;
   background-color: #345feb;
   padding: 10px;
+
+.small-search-container {
+  display: flex;
+  align-items: center;
+  margin: 5px;
+
 }
