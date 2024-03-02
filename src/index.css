@@ -95,8 +95,14 @@ code {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
+.textoDestacado {
+  border: 1px solid #345feb;
+  background-color: #345feb;
+  padding: 10px;
+
 .small-search-container {
   display: flex;
   align-items: center;
   margin: 5px;
+
 }

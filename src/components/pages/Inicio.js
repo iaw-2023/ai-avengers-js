@@ -12,10 +12,13 @@ const Inicio = () => {
   const [marcas, setMarcas] = useState([]);
   const [searchText, setSearchText] = useState("");
   const [todosLosVehiculos, setTodosLosVehiculos] = useState([]);
+  const [state, dispatch] = useReducer(shoppingReducer, shoppingInitialState);
+  const [showPopup, setShowPopup] = useState(false);
+  const [data, setData] = useState(null);
   const [showPopup, setShowPopup] = useState(false);
   const [showNoResultsMessage, setShowNoResultsMessage] = useState(false);
-
   const [, dispatch] = useReducer(shoppingReducer, shoppingInitialState);
+
 
   const handleSearchChange = (event) => {
     const value = event.target.value;
@@ -72,6 +75,20 @@ const Inicio = () => {
     setIsCardView(!isCardView);
   };
 
+
+  useEffect(() => {
+    const fetchData = async () => {
+        try {
+            const response = await fetch('http://api.exchangeratesapi.io/v1/latest?access_key=1677de3104d91da387e7a7635c931ab6&symbols=USD,ARS,JPY,GBP&format=1');
+            const jsonData = await response.json();
+            setData(jsonData.rates);
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    };
+    fetchData();
+  }, []);
+
   return (
     <div>
       <img src="/dreamCarHome.png" alt="DreamCarHome" />
@@ -98,6 +115,7 @@ const Inicio = () => {
                   marcas={marcas}
                   onClickFuncion={addToCart}
                   botonMensaje=" Agregar al carrito"
+                  rates={data}
                   isInCartView={false}
                 />
               ) : (
@@ -106,6 +124,7 @@ const Inicio = () => {
                   marcas={marcas}
                   onClickFuncion={addToCart}
                   botonMensaje=" Agregar al carrito"
+                  rates={data}
                   isInCartView={false}
                 />
               )}
