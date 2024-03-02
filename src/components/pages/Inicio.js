@@ -1,19 +1,21 @@
-import React from "react";
-import { useEffect, useState, useReducer } from "react";
+import React, { useEffect, useState, useReducer } from "react";
 import { shoppingReducer, shoppingInitialState } from "../shoppingReducer";
 import { peticionVehiculos, peticionMarcas } from "../apiAux";
 import ProductItem from "../ProductItem";
+import ListItem from "../ListItem";
 import Popup from "../Popup";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faRotate } from '@fortawesome/free-solid-svg-icons';
 
 const Inicio = () => {
   const [vehiculos, setVehiculos] = useState([]);
   const [marcas, setMarcas] = useState([]);
   const [searchText, setSearchText] = useState("");
   const [todosLosVehiculos, setTodosLosVehiculos] = useState([]);
-
-  const [state, dispatch] = useReducer(shoppingReducer, shoppingInitialState);
-
   const [showPopup, setShowPopup] = useState(false);
+  const [showNoResultsMessage, setShowNoResultsMessage] = useState(false);
+
+  const [, dispatch] = useReducer(shoppingReducer, shoppingInitialState);
 
   const handleSearchChange = (event) => {
     const value = event.target.value;
@@ -50,34 +52,80 @@ const Inicio = () => {
     if (vehiculos.length === 0) {
       fetchData();
     }
-  }, [vehiculos, marcas]);
+
+    let timeoutId;
+
+    if (vehiculos && vehiculos.length === 0 && searchText.trim() !== "") {
+      timeoutId = setTimeout(() => {
+        setShowNoResultsMessage(true);
+      }, 10000); // 10 segundos de retraso
+    }
+
+    return () => {
+      clearTimeout(timeoutId);
+    };
+  }, [vehiculos, marcas, searchText]);
+
+  const [isCardView, setIsCardView] = useState(true);
+
+  const toggleView = () => {
+    setIsCardView(!isCardView);
+  };
 
   return (
     <div>
+      <img src="/dreamCarHome.png" alt="DreamCarHome" />
       <div className="search-container">
         <input
           type="text"
           placeholder="Filtrar por marca"
           value={searchText}
           onChange={handleSearchChange}
-          className="search-input"
+          className="small-search-container"
         />
       </div>
-      <article className="box grid-responsive">
-        <div className="card-container">
+      <button onClick={toggleView}>
+        <FontAwesomeIcon icon={faRotate} />
+           Cambiar vista
+      </button>
+      {vehiculos && vehiculos.length > 0 ? (
+      <div className={isCardView ? "card-container-shopping" : "list-container-shopping"}>
           {vehiculos.map((vehiculo) => (
-            <div lassName="card text-bg-primary mb-3" style={{ maxWidth: "18rem" }} key={vehiculo.id} >
-              <ProductItem
-                vehiculo={vehiculo}
-                marcas={marcas}
-                onClickFuncion={addToCart}
-                botonMensaje="Agregar al carrito"
+            <div style={{ maxWidth: "18rem"}} key={vehiculo.id} >
+              {isCardView ? (
+                <ProductItem
+                  vehiculo={vehiculo}
+                  marcas={marcas}
+                  onClickFuncion={addToCart}
+                  botonMensaje=" Agregar al carrito"
+                  isInCartView={false}
+                />
+              ) : (
+                <ListItem
+                  vehiculo={vehiculo}
+                  marcas={marcas}
+                  onClickFuncion={addToCart}
+                  botonMensaje=" Agregar al carrito"
+                  isInCartView={false}
+                />
+              )}
+              <Popup 
+                show={showPopup} 
+                popMensaje=" Vehiculo agregado al carrito" 
+                close={() => setShowPopup(false)} 
               />
-              <Popup show={showPopup} popMensaje="Vehiculo agregado al carrito" close={() => setShowPopup(false)} />
             </div>
           ))}
-        </div>
-      </article>
+      </div>
+      ) : (
+        showNoResultsMessage ? (
+          <p>No hay productos en el carrito.</p>
+        ) : (
+          searchText.trim() === "" ? (
+            <p>Buscando...</p>
+          ) : null
+        )
+      )}
     </div>
   );
 };
