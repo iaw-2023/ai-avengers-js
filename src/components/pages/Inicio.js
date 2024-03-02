@@ -12,7 +12,7 @@ const Inicio = () => {
   const [marcas, setMarcas] = useState([]);
   const [searchText, setSearchText] = useState("");
   const [todosLosVehiculos, setTodosLosVehiculos] = useState([]);
-  const [state, dispatch] = useReducer(shoppingReducer, shoppingInitialState);
+  const [, dispatch] = useReducer(shoppingReducer, shoppingInitialState);
   const [showPopup, setShowPopup] = useState(false);
   const [data, setData] = useState(null);
   const [showNoResultsMessage, setShowNoResultsMessage] = useState(false);
