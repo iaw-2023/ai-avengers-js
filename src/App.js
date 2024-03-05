@@ -8,7 +8,6 @@ import Help from './components/pages/Help'
 import Error from './components/pages/Error'
 import LoginButton from './components/Login'
 import LogoutButton from './components/Logout'
-import Profile from './components/Profile'
 
 const App = () =>  {
   const {isAuthenticated} = useAuth0();
@@ -17,16 +16,15 @@ const App = () =>  {
     <div className="App">
       {isAuthenticated ? (
         <>
-        <Profile /> 
-        <LogoutButton/>
         <Router>
+        <LogoutButton/>
         <Navbar/>
-        <Routes>
+          <Routes>
             <Route path='/' exact Component={Inicio}/>
             <Route path='/Shoppingcart' Component={Shoppingcart}/>
             <Route path='/Help' Component={Help}/>
-            <Route path='/Error' Component={Error}/> 
-          </Routes>
+            <Route path='/Error' Component={Error}/>
+          </Routes> 
         </Router>
         </>
       ) : (
