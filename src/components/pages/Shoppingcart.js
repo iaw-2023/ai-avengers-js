@@ -6,6 +6,8 @@ import ListItem from "../ListItem";
 import Popup from "../Popup";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faRotate, faEnvelopeCircleCheck } from '@fortawesome/free-solid-svg-icons';
+import MyPaymentComponent from '../MyPaymentComponent.js';
+import { initMercadoPago } from '@mercadopago/sdk-react';
 
 const Shoppingcart = () => {
   const [state, dispatch] = useReducer(shoppingReducer, shoppingInitialState);
@@ -15,10 +17,10 @@ const Shoppingcart = () => {
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [email, setEmail] = useState("");
-  const [error, setError] = useState("");
+  const [error, setError] = useState(false);
 
   const [showPopup, setShowPopup] = useState(false);
-
+  const[isModalOpen, setIsModalOpen] = useState(false);
   const handleEmailChange = (event) => {
     setEmail(event.target.value);
   };
@@ -88,6 +90,8 @@ const Shoppingcart = () => {
       setMarcas(marcasData);
     };
 
+    initMercadoPago('TEST-749042e1-225b-4f7a-9f00-25dfa957cb95'); // Public key
+
     if (marcas.length === 0) {
       fetchData();
     }
@@ -105,6 +109,86 @@ const Shoppingcart = () => {
   const toggleView = () => {
     setIsCardView(!isCardView);
   };
+
+  const initialization = {
+    //amount: 10000
+    amount: products.reduce((acumulador, vehiculo) => acumulador + vehiculo.precio, 0)
+   };
+   
+   const onSubmit = async (formData) => {
+    // callback called when clicking on the submit data button
+    return new Promise((resolve, reject) => {
+      fetch('http://127.0.0.1:8000/process_payment', { //cambiar direccion TODO
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      })
+        .then((response) => {
+          if(!response.ok){
+            setError(true);
+          }
+          return response.json();
+        })
+        .then((data) => {
+          if (data.status === "approved") {
+            console.log("se pudo");
+            resolve();
+          } else {
+            setError(true);
+            reject();
+          }
+        })
+        .catch((error) => {
+          // handle error response when trying to create payment
+          setError(true);
+          reject();
+        });
+    });
+   };
+   
+   
+   const onError = async (error) => {
+    // callback called for all Brick error cases
+    console.log(error);
+   };
+   
+   
+   const onReady = async () => {
+    /*
+      Callback called when Brick is ready.
+      Here you can hide loadings from your site, for example.
+    */
+   };
+   
+   if(isModalOpen){
+    return <MyPaymentComponent
+          initialization={initialization}
+          onSubmit={onSubmit}
+          onReady={onReady}
+          onError={onError}
+        />
+    }
+
+    if(error){
+      return (
+          <div className="intentar">
+            <div>
+              <h1> Algo salio mal. Vuelv a intentarlo!</h1>
+            </div>
+            <button
+            onClick={() => {
+              setIsModalOpen(true);
+              setError(false);
+            }}
+          >
+            {" "}
+            Volver a intentar{" "}
+            </button>
+          </div>
+      );
+    }
 
   return (
     <div>
@@ -175,6 +259,14 @@ const Shoppingcart = () => {
           />
         </div>
         {error && <p>{error}</p>} {/* Mostrar el mensaje de error si existe */}
+        <button 
+            onClick={() => {
+              setIsModalOpen(true);
+            }}
+          >
+            {" "}
+            FINALIZAR COMPRA{" "}
+            </button>
         <button type="submit" className="btn btn-primary">
           <FontAwesomeIcon icon={faEnvelopeCircleCheck} />
              Reservar
