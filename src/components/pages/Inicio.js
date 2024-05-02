@@ -12,7 +12,7 @@ const Inicio = () => {
   const [marcas, setMarcas] = useState([]);
   const [searchText, setSearchText] = useState("");
   const [todosLosVehiculos, setTodosLosVehiculos] = useState([]);
-  const [state, dispatch] = useReducer(shoppingReducer, shoppingInitialState);
+  const [, dispatch] = useReducer(shoppingReducer, shoppingInitialState);
   const [showPopup, setShowPopup] = useState(false);
   const [data, setData] = useState(null);
   const [showNoResultsMessage, setShowNoResultsMessage] = useState(false);
@@ -77,15 +77,17 @@ const Inicio = () => {
   useEffect(() => {
     const fetchData = async () => {
         try {
-            const response = await fetch('http://api.exchangeratesapi.io/v1/latest?access_key=1677de3104d91da387e7a7635c931ab6&symbols=USD,ARS,JPY,GBP&format=1');
+            const response = await fetch("/v1/latest?access_key=1677de3104d91da387e7a7635c931ab6&symbols=USD,ARS,JPY,GBP&format=1");
             const jsonData = await response.json();
+            console.log(jsonData);
             setData(jsonData.rates);
         } catch (error) {
             console.error('Error fetching data:', error);
         }
     };
+
     fetchData();
-  }, []);
+}, []);
 
   return (
     <div>
@@ -93,13 +95,14 @@ const Inicio = () => {
       <div className="search-container">
         <input
           type="text"
+          style={{ border: "5px double #0d6efd", borderRadius: "8px" }}
           placeholder="Filtrar por marca"
           value={searchText}
           onChange={handleSearchChange}
           className="small-search-container"
         />
       </div>
-      <button onClick={toggleView}>
+      <button onClick={toggleView} className="btn btn-secondary">
         <FontAwesomeIcon icon={faRotate} />
            Cambiar vista
       </button>

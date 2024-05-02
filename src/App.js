@@ -6,7 +6,7 @@ import Shoppingcart from './components/pages/Shoppingcart'
 import Help from './components/pages/Help'
 import Error from './components/pages/Error'
 
-function App() {
+const App = () =>  {
   return (
     <div className="App">
       <Router>
@@ -15,7 +15,7 @@ function App() {
           <Route path='/' exact Component={Inicio}/>
           <Route path='/Shoppingcart' Component={Shoppingcart}/>
           <Route path='/Help' Component={Help}/>
-          <Route path='/Error' Component={Error}/>
+          <Route path='/Error' Component={Error}/> 
         </Routes>
       </Router>
     </div>

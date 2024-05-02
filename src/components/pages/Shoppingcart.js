@@ -16,6 +16,7 @@ const Shoppingcart = () => {
   const [endDate, setEndDate] = useState("");
   const [email, setEmail] = useState("");
   const [error, setError] = useState("");
+  const [data, setData] = useState(null);
 
   const [showPopup, setShowPopup] = useState(false);
 
@@ -86,6 +87,14 @@ const Shoppingcart = () => {
     const fetchData = async () => {
       const marcasData = await peticionMarcas();
       setMarcas(marcasData);
+      try {
+        const response = await fetch("/v1/latest?access_key=1677de3104d91da387e7a7635c931ab6&symbols=USD,ARS,JPY,GBP&format=1");
+        const jsonData = await response.json();
+        console.log(jsonData);
+        setData(jsonData.rates);
+      } catch (error) {
+          console.error('Error fetching data:', error);
+      }
     };
 
     if (marcas.length === 0) {
@@ -110,7 +119,7 @@ const Shoppingcart = () => {
     <div>
       <img src="/dreamCarShopping.png" alt="DreamCarShopping" />
       <br /><br />
-      <button onClick={toggleView}>
+      <button onClick={toggleView} className="btn btn-secondary">
         <FontAwesomeIcon icon={faRotate} />
            Cambiar vista
       </button>
@@ -125,6 +134,7 @@ const Shoppingcart = () => {
                   onClickFuncion={deleteFromCart}
                   botonMensaje=" Borrar del carrito"
                   isInCartView={true}
+                  rates={data}
                 />
               ) : (
                 <ListItem
@@ -133,6 +143,7 @@ const Shoppingcart = () => {
                   onClickFuncion={deleteFromCart}
                   botonMensaje=" Borrar del carrito"
                   isInCartView={true}
+                  rates={data}
                 />
               )}
             </div>
