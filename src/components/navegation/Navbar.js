@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHome, faShoppingCart, faCircleInfo, faFlag, faHashtag } from '@fortawesome/free-solid-svg-icons'; 
+import { faHome, faShoppingCart, faCircleInfo, faFlag, faHashtag, faUser } from '@fortawesome/free-solid-svg-icons'; 
 
 const Navbar = () => {
   const [deferredPrompt, setDeferredPrompt] = React.useState(null);
@@ -66,8 +66,13 @@ const Navbar = () => {
         </div>
         <ul className="navbar-nav ml-auto">
           <li className="nav-item">
-            <button className="nav-link btn btn-warning" onClick={handleInstall}><FontAwesomeIcon icon={faHashtag} />Instalar PWA</button>
+            <Link className="nav-link btn btn-primary" to="/Profile">
+                <FontAwesomeIcon icon={faUser} /> Perfil
+            </Link>
           </li>
+          <li className="nav-item">
+            <button className="nav-link btn btn-warning" onClick={handleInstall}><FontAwesomeIcon icon={faHashtag} />Instalar PWA</button>
+          </li> 
           <li className="nav-item">
             <Link className="nav-link btn btn-danger" to="/Error">
                 <FontAwesomeIcon icon={faFlag} /> Report or Suggestions
