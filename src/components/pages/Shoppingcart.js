@@ -18,6 +18,7 @@ const Shoppingcart = () => {
   const [endDate, setEndDate] = useState("");
   const [email, setEmail] = useState("");
   const [error, setError] = useState(false);
+  const [data, setData] = useState(null);
 
   const [showPopup, setShowPopup] = useState(false);
   const[isModalOpen, setIsModalOpen] = useState(false);
