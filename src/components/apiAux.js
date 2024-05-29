@@ -22,7 +22,7 @@ const peticionVehiculos = async () => {
     }
   };
 
-  //TODO Exportar los logos de las marcas
+  // TODO cambiar direccion
   const peticionLogos = async () => {
     try {
       //const res = await fetch("https://ai-avengers-laravel-git-laravel-zucolieze.vercel.app/rest/logos");

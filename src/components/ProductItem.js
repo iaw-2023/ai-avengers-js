@@ -27,15 +27,22 @@ const ProductItem = ({ vehiculo, marcas, onClickFuncion, botonMensaje, rates, is
 
   const manejarMouseLeave = () => {
     setMostrarCuadro(false);
-  };    
+  };
+  
+  const marca = marcas.find((marca) => marca.id === vehiculo.id_marca)?.marca || " ";
+  
+  const [imgSrc, setImgSrc] = useState("http://localhost:8000/storage//uploads/" + marca + ".png"); // TODO Cambiar direccion
 
+  const handleError = () => {
+    setImgSrc(DreamCar_ico);
+  };
+  
   return (
-    //TODO Cambiar el icono de la carta para que muestre el logo correspondiente
     <div className="card text-bg-dark text-white mb-1" style={{ maxWidth: "18rem" }} key={vehiculo.id} >
-      <img src={DreamCar_ico} className="card-img-top" alt="Auto Imagen"></img>
+      <img src={imgSrc} className="card-img-top" alt="Auto Imagen" onError={handleError}></img>
       <div className="card-body">
         <h4>
-          {(marcas.find((marca) => marca.id === vehiculo.id_marca)?.marca || " ")}
+          {marca}
         </h4>
         <p>{"Modelo: " + vehiculo.modelo}</p>
         <p>{"Precio: $"+ vehiculo.precio}</p>
