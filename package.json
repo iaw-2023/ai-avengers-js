@@ -2,7 +2,9 @@
   "name": "ai-avengers-js",
   "version": "0.1.0",
   "private": true,
+  "proxy": "http://api.exchangeratesapi.io",
   "dependencies": {
+    "@auth0/auth0-react": "^2.2.4",
     "@fortawesome/fontawesome-svg-core": "^6.5.1",
     "@fortawesome/free-solid-svg-icons": "^6.5.1",
     "@fortawesome/react-fontawesome": "^0.2.0",
@@ -10,7 +12,9 @@
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
+    "axios": "^1.6.7",
     "bootstrap": "^5.3.0",
+    "jquery": "^3.7.1",
     "mercadopago": "^2.0.8",
     "moment": "^2.29.4",
     "postcss": "^8.4.31",
@@ -23,6 +27,7 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
+    "build-sw": "workbox generateSW sw-config.js",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
@@ -47,6 +52,8 @@
     ]
   },
   "devDependencies": {
-    "@rollup/plugin-terser": "^0.4.4"
+    "@rollup/plugin-terser": "^0.4.4",
+    "workbox-cli": "^7.0.0",
+    "@babel/plugin-proposal-private-property-in-object": "^7.16.7"
   }
 }
