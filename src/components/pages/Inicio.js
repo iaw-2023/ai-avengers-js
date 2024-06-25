@@ -77,10 +77,9 @@ const Inicio = () => {
   useEffect(() => {
     const fetchData = async () => {
         try {
-            const response = await fetch("/v1/latest?access_key=1677de3104d91da387e7a7635c931ab6&symbols=USD,ARS,JPY,GBP&format=1");
-            const jsonData = await response.json();
-            console.log(jsonData);
-            setData(jsonData.rates);
+          const response = await fetch("http://api.exchangeratesapi.io/v1/latest?access_key=1677de3104d91da387e7a7635c931ab6&symbols=USD,ARS,JPY,GBP&format=1");
+          const jsonData = await response.json();
+          setData(jsonData.rates);
         } catch (error) {
             console.error('Error fetching data:', error);
         }
@@ -125,7 +124,6 @@ const Inicio = () => {
                   marcas={marcas}
                   onClickFuncion={addToCart}
                   botonMensaje=" Agregar al carrito"
-                  rates={data}
                   isInCartView={false}
                 />
               )}

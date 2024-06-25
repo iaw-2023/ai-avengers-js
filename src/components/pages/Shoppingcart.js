@@ -88,9 +88,8 @@ const Shoppingcart = () => {
       const marcasData = await peticionMarcas();
       setMarcas(marcasData);
       try {
-        const response = await fetch("/v1/latest?access_key=1677de3104d91da387e7a7635c931ab6&symbols=USD,ARS,JPY,GBP&format=1");
+        const response = await fetch("http://api.exchangeratesapi.io/v1/latest?access_key=1677de3104d91da387e7a7635c931ab6&symbols=USD,ARS,JPY,GBP&format=1");
         const jsonData = await response.json();
-        console.log(jsonData);
         setData(jsonData.rates);
       } catch (error) {
           console.error('Error fetching data:', error);
@@ -126,15 +125,15 @@ const Shoppingcart = () => {
       {products && products.length > 0 ? (
         <div className={isCardView ? "card-container-shopping" : "list-container-shopping"}>
           {products.map((vehiculo, index) => (
-            <div key={vehiculo.id}>
+            <div style={{ maxWidth: "18rem"}} key={vehiculo.id}>
               {isCardView ? (
                 <ProductItem
                   vehiculo={vehiculo}
                   marcas={marcas}
                   onClickFuncion={deleteFromCart}
                   botonMensaje=" Borrar del carrito"
-                  isInCartView={true}
                   rates={data}
+                  isInCartView={true}
                 />
               ) : (
                 <ListItem
@@ -143,7 +142,6 @@ const Shoppingcart = () => {
                   onClickFuncion={deleteFromCart}
                   botonMensaje=" Borrar del carrito"
                   isInCartView={true}
-                  rates={data}
                 />
               )}
             </div>
